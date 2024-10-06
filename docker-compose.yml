@@ -9,7 +9,8 @@ services:
       - local_dev_network
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password
+      - SA_PASSWORD=Password123###
+      - MSSQL_SA_PASSWORD=Password123###
       - MSSQL_PID=Express
     ports:
       - 1433:1433
