@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashGroupTechAssessment", "FlashGroupTechAssessment.csproj", "{FD5EA48C-5319-476B-881F-CFCAC5CAEF1E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80418129-38DD-4651-8F89-DAE6F9C02AC8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD5EA48C-5319-476B-881F-CFCAC5CAEF1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD5EA48C-5319-476B-881F-CFCAC5CAEF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD5EA48C-5319-476B-881F-CFCAC5CAEF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD5EA48C-5319-476B-881F-CFCAC5CAEF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {546711F7-5991-4F50-A025-88B5D6D4F551}
+	EndGlobalSection
+EndGlobal

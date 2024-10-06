@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  mssql:
+    build:
+      dockerfile: DATABASE.Dockerfile
+    container_name: mssql
+    networks:
+      - local_dev_network
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password
+      - MSSQL_PID=Express
+    ports:
+      - 1433:1433
+    volumes:
+      - mssql-data:/var/opt/mssql
+  backend:
+    build:
+      dockerfile: API.Dockerfile
+    ports:
+      - 8080:8080
+      - 8081:8081
+      - 443:443 
+volumes:
+  mssql-data:
+networks:
+  local_dev_network:
+    name: database_network
