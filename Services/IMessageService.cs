@@ -1,9 +1,10 @@
 ﻿using FlashGroupTechAssessment.Models;
+using FlashGroupTechAssessment.Models.Dto;
 
 namespace FlashGroupTechAssessment.Services
 {
 	public interface IMessageService
 	{
-		public CustomerMessage SanatizeMessage(string message);
+		public Task<CustomerMessageDTO> SanatizeMessageAsync(string message);
 	}
 }

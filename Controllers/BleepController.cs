@@ -1,28 +1,27 @@
 using FlashGroupTechAssessment.Models;
+using FlashGroupTechAssessment.Models.Dto;
+using FlashGroupTechAssessment.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlashGroupTechAssessment.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class BleepController : ControllerBase
 	{
 		private readonly ILogger<BleepController> _logger;
+		private readonly IMessageService _messageService;
 
-		public BleepController(ILogger<BleepController> logger)
+		public BleepController(ILogger<BleepController> logger,IMessageService messageService)
 		{
 			_logger = logger;
+			_messageService = messageService;
 		}
 
-		[HttpPost(Name = "Message")]
-		public CustomerMessage Message([FromBody] CustomerMessage message)
+		[HttpPost("single-bleep")]
+		public Task<CustomerMessageDTO> Bleep([FromBody] CustomerMessageDTO message)
 		{
-			return message;
-		}
-		[HttpPost(Name = "Messages")]
-		public IEnumerable<CustomerMessage> Messages([FromBody] ICollection<CustomerMessage> messages)
-		{
-			return messages;
+			return _messageService.SanatizeMessageAsync(message.Message.Trim());
 		}
 	}
 }

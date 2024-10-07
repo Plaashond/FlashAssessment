@@ -1,16 +1,23 @@
 ﻿using FlashGroupTechAssessment.Models;
+using FlashGroupTechAssessment.Models.Dto;
+using FlashGroupTechAssessment.Repositories.SensitiveWord;
 
 namespace FlashGroupTechAssessment.Services
 {
 	public class MessageService : IMessageService
 	{
-		public CustomerMessage SanatizeMessage(string message)
+		private readonly ISensitiveWordRepository _sensitiveWordRepository;
+		public MessageService(ISensitiveWordRepository sensitiveWordRepository)
 		{
-			throw new NotImplementedException();
+			_sensitiveWordRepository = sensitiveWordRepository;
 		}
-		private bool ValidateMessage(string message)
+		public async Task<CustomerMessageDTO> SanatizeMessageAsync(string message)
 		{
-			return false;
+			if (message == null || !_sensitiveWordRepository.ContainsSensitiveWord(message))
+			{
+				return new CustomerMessageDTO(message);
+			}
+			return await _sensitiveWordRepository.BleepWordAsync(message);
 		}
 	}
 }

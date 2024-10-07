@@ -1,6 +1,12 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using Dapper;
+using System.Data.Common;
+using FlashGroupTechAssessment.Models;
+using FlashGroupTechAssessment.Repositories.SensitiveWord;
+using FlashGroupTechAssessment.Repositories.Message;
+using FlashGroupTechAssessment.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +20,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IDbConnection>(sp =>
+builder.Services.AddTransient<IDbConnection>(sp =>
 		new SqlConnection(configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<ISensitiveWordRepository,SensitiveWordRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 var app = builder.Build();
 
@@ -26,7 +35,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

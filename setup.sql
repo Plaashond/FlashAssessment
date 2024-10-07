@@ -10,7 +10,9 @@ GO
 CREATE TABLE SensitiveWord (
     id INT IDENTITY(1,1) PRIMARY KEY,
     word VARCHAR(100) NOT NULL,
-    severity_id INT FOREIGN KEY REFERENCES Severity(id)
+    starred_word VARCHAR(100) NULL,
+    severity_id INT FOREIGN KEY REFERENCES Severity(id),
+    CONSTRAINT AK_Word UNIQUE(word) 
 );
 GO
 CREATE TABLE Customer (
@@ -26,9 +28,9 @@ CREATE TABLE CustomerMessage (
     sanitized_message VARCHAR(MAX) NULL
 );
 GO
-INSERT INTO Severity (word) VALUES ('critical'), ('major'), ('minor');
+INSERT INTO Severity (severity_level) VALUES ('critical'), ('major'), ('minor');
 GO
-INSERT INTO SensitiveWords (word, severity_id)
+INSERT INTO SensitiveWord (word, severity_id)
 VALUES
     ('ACTION', 3),
     ('ADD', 3),
@@ -263,4 +265,7 @@ VALUES
     ('XP_', 2),
     ('MERGE', 2),
     ('TRUNCATE', 1);
+GO
+UPDATE SensitiveWord
+SET starred_word = REPLICATE('*', LEN(word));
 
