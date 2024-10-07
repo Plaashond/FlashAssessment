@@ -17,6 +17,7 @@ namespace FlashGroupTechAssessment.Services
 			{
 				return new CustomerMessageDTO(message);
 			}
+			//TODO: add message for auditing purposes
 			return await _sensitiveWordRepository.BleepWordAsync(message);
 		}
 	}

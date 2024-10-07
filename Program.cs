@@ -1,9 +1,5 @@
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using System.Data;
-using Dapper;
-using System.Data.Common;
-using FlashGroupTechAssessment.Models;
 using FlashGroupTechAssessment.Repositories.SensitiveWord;
 using FlashGroupTechAssessment.Repositories.Message;
 using FlashGroupTechAssessment.Services;
@@ -34,8 +30,10 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
-//app.UseHttpsRedirection();
+else
+{
+	app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 
