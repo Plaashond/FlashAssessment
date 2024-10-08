@@ -1,0 +1,21 @@
+# TODO:
+- [x] intergate swagger and generate docs automatically
+- [x] ensure all endpoints are documented properly
+- [x] Use Mssql for the database
+- [x] Use ORM other than EF
+- [x] Add swagger documentation
+- [x] Add crud for message
+- [ ] Add test project
+- [ ] Add code coverage report
+- [ ] Add unit tests for dapper code
+- [ ] Discuss what can be done to enhance performance
+	- [ ] Put messages in a staging table called CustomerMessages and queue all messages without sanatized text to be processed.
+	- [ ] Add signalr to update the sender live with messages as they are sanatized.(Give the illusion of performance)
+- [ ] Aditional enhancements
+	- [x] remove customer link
+	- [x] Add audit check on bleep to set if it needs to save or if it is a once-off.
+	- [ ] Add case sensitive check
+	- [ ] Add authentication to crud functionality
+	- [ ] Document README to show setup steps
+	- [ ] Add better exception handling(Response messages)
+- [x] Add microservice to sanatize a string 

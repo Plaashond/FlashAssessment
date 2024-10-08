@@ -2,6 +2,7 @@ using FlashGroupTechAssessment.Models;
 using FlashGroupTechAssessment.Models.Dto;
 using FlashGroupTechAssessment.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.AccessControl;
 
 namespace FlashGroupTechAssessment.Controllers
 {
@@ -19,9 +20,9 @@ namespace FlashGroupTechAssessment.Controllers
 		}
 
 		[HttpPost("single-bleep")]
-		public Task<CustomerMessageDTO> Bleep([FromBody] CustomerMessageDTO message)
+		public Task<CustomerMessageDTO> Bleep([FromBody] CustomerMessageDTO message, [FromQuery] bool audit = false)
 		{
-			return _messageService.SanatizeMessageAsync(message.Message.Trim());
+			return _messageService.SanitizeMessageAsync(message.Message.Trim(), audit);
 		}
 	}
 }
