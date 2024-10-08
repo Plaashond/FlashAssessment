@@ -5,7 +5,7 @@ using FlashGroupTechAssessment.Repositories.SensitiveWord;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FlashGroupTechAssessment.Services
+namespace FlashGroupTechAssessment.Services.Message
 {
 	public class MessageService : IMessageService
 	{
@@ -19,13 +19,13 @@ namespace FlashGroupTechAssessment.Services
 		/// <inheritdoc/>
 		public async Task<bool> Delete(Guid id)
 		{
-			return await _messageRepository.Delete(id.ToString()); 
+			return await _messageRepository.Delete(id.ToString());
 		}
 		/// <inheritdoc/>
 		public async Task<ICollection<CustomerMessageDTO>> GetAllMessages()
 		{
 			ICollection<CustomerMessage> mesages = await _messageRepository.GetAll();
-			return mesages.Select(x=>new CustomerMessageDTO(x.Sanatizedmessage) { Id = x.Id}).ToList();
+			return mesages.Select(x => new CustomerMessageDTO(x.Sanatizedmessage) { Id = x.Id }).ToList();
 		}
 		/// <inheritdoc/>
 		public async Task<CustomerMessageDTO> GetById(Guid id)
@@ -33,11 +33,11 @@ namespace FlashGroupTechAssessment.Services
 			CustomerMessage? message = await _messageRepository.GetById(id.ToString());
 			return message == null
 				? throw new InvalidOperationException("message does not exist")
-				: new CustomerMessageDTO(message.Message) { Id = message.Id};
+				: new CustomerMessageDTO(message.Message) { Id = message.Id };
 		}
 
 		/// <inheritdoc/>
-		public async Task<CustomerMessageDTO> SanitizeMessageAsync(string message,bool audit = false)
+		public async Task<CustomerMessageDTO> SanitizeMessageAsync(string message, bool audit = false)
 		{
 			bool containsSensitiveWord = await _sensitiveWordRepository.ContainsSensitiveWord(message);
 			if (message == null || !containsSensitiveWord)

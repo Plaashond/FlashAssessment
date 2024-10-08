@@ -24,5 +24,11 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 		/// The method `BleepWordAsync` returns a `Task<CustomerMessageDTO>`.
 		/// </returns>
 		public Task<CustomerMessageDTO> BleepWordsAsync(string message, bool audit);
+		public Task<bool> Delete(int id);
+		public Task<bool> Update(Models.SensitiveWord message);
+		public Task<bool> Create(Models.SensitiveWord message);
+		public Task<Models.SensitiveWord?> GetById(int id);
+		public Task<List<Models.SensitiveWord>> GetAll();
+
 	}
 }

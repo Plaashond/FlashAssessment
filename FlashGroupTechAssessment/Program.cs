@@ -2,8 +2,8 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using FlashGroupTechAssessment.Repositories.SensitiveWord;
 using FlashGroupTechAssessment.Repositories.Message;
-using FlashGroupTechAssessment.Services;
 using FlashGroupTechAssessment.Wrappers;
+using FlashGroupTechAssessment.Services.Message;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -9,12 +9,12 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 {
 	public class SensitiveWordRepository : ISensitiveWordRepository
 	{
-		private readonly IDbConnectionWrapper _connection;
+		private readonly IDbConnectionWrapper _dbConnection;
 		private readonly IMessageRepository _messageRepository;
 
 		public SensitiveWordRepository(IDbConnectionWrapper dbConnection, IMessageRepository messageRepository)
 		{
-			_connection = dbConnection;
+			_dbConnection = dbConnection;
 			_messageRepository = messageRepository;
 		}
 		/// <inheritdoc/>
@@ -48,7 +48,7 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 					THEN 1
 					ELSE 0
 				END AS ContainsWord";
-			return await _connection.QuerySingleAsync<bool>(query, parameters);
+			return await _dbConnection.QuerySingleAsync<bool>(query, parameters);
 		}
 		/// <summary>
 		/// The function `SanitizeBatchAsync` sanitizes a batch of words by replacing sensitive words with
@@ -84,11 +84,132 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
                 DELETE FROM @SensitiveWords WHERE word = @currentWord;
             END
             SELECT @modifiedString AS ModifiedString;";
-			if (_connection.State == ConnectionState.Closed)
+			if (_dbConnection.State == ConnectionState.Closed)
 			{
-				_connection.Open();
+				_dbConnection.Open();
 			}
-			return await _connection.QuerySingleAsync<string>(query, parameters);
+			return await _dbConnection.QuerySingleAsync<string>(query, parameters);
+		}
+		public async Task<List<Models.SensitiveWord>> GetAll()
+		{
+			try
+			{
+				_dbConnection.Open();
+				string query = @"SELECT id as Id, word as Word, starred_word as StarredWord FROM MyDatabase.dbo.SensitiveWord;";
+
+				IEnumerable<Models.SensitiveWord> projects = await _dbConnection.QueryAsync<Models.SensitiveWord>(query);
+				return projects.ToList();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			finally
+			{
+				_dbConnection.Close();
+			}
+		}
+		/// <inheritdoc/>
+		public async Task<Models.SensitiveWord?> GetById(int id)
+		{
+			try
+			{
+				_dbConnection.Open();
+
+				string query = $@"SELECT id as Id, word as Word, starred_word as StarredWord FROM MyDatabase.dbo.SensitiveWord where id = {id}";
+
+				var customer = await _dbConnection.QueryAsync<Models.SensitiveWord>(query, id);
+				return customer.FirstOrDefault();
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+			finally
+			{
+				_dbConnection.Close();
+			}
+		}
+		/// <inheritdoc/>
+		public async Task<bool> Create(Models.SensitiveWord message)
+		{
+			try
+			{
+				_dbConnection.Open();
+
+				string query = @"INSERT INTO MyDatabase.dbo.SensitiveWord
+								( word, starred_word, severity_id)
+								VALUES( @Word, @StarredWord);";
+
+				await _dbConnection.ExecuteAsync(query, message);
+				return true;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			finally
+			{
+				_dbConnection.Close();
+			}
+		}
+		/// <inheritdoc/>
+		public async Task<bool> Update(Models.SensitiveWord message)
+		{
+			try
+			{
+				_dbConnection.Open();
+
+				string selectQuery = $@"SELECT id as Id, word as Word, starred_word as StarredWord FROM MyDatabase.dbo.SensitiveWord where id = {message.Id}";
+
+				var entity = await _dbConnection.QueryAsync<Models.SensitiveWord>(selectQuery, message);
+
+				if (entity is null)
+					return false;
+
+				string updateQuery = @"UPDATE MyDatabase.dbo.SensitiveWord
+									SET word=@Word, starred_word=@StarredWord
+										WHERE id=@Id;";
+
+				await _dbConnection.ExecuteAsync(updateQuery, message);
+				return true;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			finally
+			{
+				_dbConnection.Close();
+			}
+		}
+		/// <inheritdoc/>
+		public async Task<bool> Delete(int id)
+		{
+			try
+			{
+				_dbConnection.Open();
+
+				string selectQuery = $@"SELECT id as Id, word as Word, starred_word as StarredWord FROM MyDatabase.dbo.SensitiveWord where id = {id}";
+
+				var entity = await _dbConnection.QueryAsync<Models.SensitiveWord>(selectQuery, id);
+
+				if (entity is null)
+					return false;
+
+				string query = $@"delete from MyDatabase.dbo.SensitiveWord where id = {id}";
+
+				await _dbConnection.ExecuteAsync(query);
+				return true;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			finally
+			{
+				_dbConnection.Close();
+			}
 		}
 
 		/// <summary>

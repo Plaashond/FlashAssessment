@@ -1,7 +1,7 @@
 ﻿using FlashGroupTechAssessment.Models;
 using FlashGroupTechAssessment.Models.Dto;
 
-namespace FlashGroupTechAssessment.Services
+namespace FlashGroupTechAssessment.Services.Message
 {
 	public interface IMessageService
 	{

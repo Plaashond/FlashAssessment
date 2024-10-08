@@ -1,6 +1,6 @@
 using FlashGroupTechAssessment.Models;
 using FlashGroupTechAssessment.Models.Dto;
-using FlashGroupTechAssessment.Services;
+using FlashGroupTechAssessment.Services.Message;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlashGroupTechAssessment.Controllers

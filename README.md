@@ -18,12 +18,15 @@
 - [x] Use ORM other than EF
 - [x] Add swagger documentation
 - [x] Add crud for message
+- [x] Add crud for sensitive words
 - [x] Add test project
 - [x] Add code coverage report
 - [x] Add unit tests for dapper code
-	- [x] sensitive word repository
+	- [ ] sensitive word repository
 	- [x] message repository
 	- [x] message service
+	- [ ] Sensitive word service
+
 - [ ] Discuss what can be done to enhance performance
 	- [ ] Put messages in a staging table called CustomerMessages and queue all messages without sanatized text to be processed.
 	- [ ] Add signalr to update the sender live with messages as they are sanatized.(Give the illusion of performance)

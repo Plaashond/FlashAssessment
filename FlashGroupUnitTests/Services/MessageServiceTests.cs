@@ -2,7 +2,7 @@
 using FlashGroupTechAssessment.Models.Dto;
 using FlashGroupTechAssessment.Repositories.Message;
 using FlashGroupTechAssessment.Repositories.SensitiveWord;
-using FlashGroupTechAssessment.Services;
+using FlashGroupTechAssessment.Services.Message;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using Xunit;
 
 namespace FlashGroupUnitTests.Services
 {
-	public class MessageServiceTests
+    public class MessageServiceTests
 	{
 		private readonly Mock<ISensitiveWordRepository> _mockSensitiveWordRepository;
 		private readonly Mock<IMessageRepository> _mockMessageRepository;
