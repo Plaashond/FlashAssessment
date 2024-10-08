@@ -9,10 +9,10 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 {
 	public class SensitiveWordRepository : ISensitiveWordRepository
 	{
-		private readonly IDbConnection _connection;
+		private readonly IDbConnectionWrapper _connection;
 		private readonly IMessageRepository _messageRepository;
 
-		public SensitiveWordRepository(IDbConnection dbConnection, IMessageRepository messageRepository)
+		public SensitiveWordRepository(IDbConnectionWrapper dbConnection, IMessageRepository messageRepository)
 		{
 			_connection = dbConnection;
 			_messageRepository = messageRepository;
@@ -33,7 +33,7 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 		}
 
 		/// <inheritdoc/>
-		public bool ContainsSensitiveWord(string words)
+		public async Task<bool> ContainsSensitiveWord(string words)
 		{
 			object parameters = new { Words = words };
 			string query = @"
@@ -48,7 +48,7 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 					THEN 1
 					ELSE 0
 				END AS ContainsWord";
-			return _connection.Query<string>(query, parameters).Any();
+			return await _connection.QuerySingleAsync<bool>(query, parameters);
 		}
 		/// <summary>
 		/// The function `SanitizeBatchAsync` sanitizes a batch of words by replacing sensitive words with

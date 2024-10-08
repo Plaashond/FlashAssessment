@@ -39,7 +39,8 @@ namespace FlashGroupTechAssessment.Services
 		/// <inheritdoc/>
 		public async Task<CustomerMessageDTO> SanitizeMessageAsync(string message,bool audit = false)
 		{
-			if (message == null || !_sensitiveWordRepository.ContainsSensitiveWord(message))
+			bool containsSensitiveWord = await _sensitiveWordRepository.ContainsSensitiveWord(message);
+			if (message == null || !containsSensitiveWord)
 			{
 				if (audit)
 				{
@@ -47,15 +48,12 @@ namespace FlashGroupTechAssessment.Services
 				}
 				return new CustomerMessageDTO(message!);
 			}
-			//TODO: add message for auditing purposes
 			return await _sensitiveWordRepository.BleepWordsAsync(message, audit);
 		}
 		/// <inheritdoc/>
 		public async Task<bool> Update(CustomerMessageDTO message)
 		{
-			CustomerMessageDTO sanatizedWord = await _sensitiveWordRepository.BleepWordsAsync(message.Message, false);
-			Console.WriteLine(sanatizedWord.Message);
-			Console.WriteLine(message.Id);
+			CustomerMessageDTO sanatizedWord = await _sensitiveWordRepository.BleepWordsAsync(message.Message, false) ?? throw new InvalidOperationException("word was unable to be sanatized");
 			sanatizedWord.Id = message.Id;
 			return await _messageRepository.Update(new CustomerMessage(sanatizedWord));
 		}

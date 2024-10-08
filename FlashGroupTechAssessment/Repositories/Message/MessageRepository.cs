@@ -7,9 +7,9 @@ namespace FlashGroupTechAssessment.Repositories.Message
 {
 	public class MessageRepository : IMessageRepository
 	{
-		private readonly IDbConnection _dbConnection;
+		private readonly IDbConnectionWrapper _dbConnection;
 
-		public MessageRepository(IDbConnection dbConnection)
+		public MessageRepository(IDbConnectionWrapper dbConnection)
 		{
 			_dbConnection = dbConnection;
 		}
@@ -132,7 +132,7 @@ namespace FlashGroupTechAssessment.Repositories.Message
 			}
 			finally
 			{
-				_dbConnection?.Close();
+				_dbConnection.Close();
 			}
 		}
 	}

@@ -11,7 +11,7 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 		/// checks if a given string contains a sensitive word. The parameter `words` is the string that you
 		/// want to check for sensitive words. The method will return a boolean value indicating whether the
 		/// input string contains any sensitive words or not</param>
-		public bool ContainsSensitiveWord(string words);
+		public Task<bool> ContainsSensitiveWord(string words);
 		/// <summary>
 		/// The function `BleepWordAsync` asynchronously sanitizes a string by splitting it into batches,
 		/// sanitizing each batch, and then joining the sanitized batches into a single string.

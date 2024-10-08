@@ -2,6 +2,10 @@
 {
 	public class CustomerMessageDTO
 	{
+		public CustomerMessageDTO()
+		{
+			
+		}
 		public CustomerMessageDTO(string message)
 		{
 			Message = message;

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashGroupTechAssessment", ".\FlashGroupTechAssessment\FlashGroupTechAssessment.csproj", "{FD5EA48C-5319-476B-881F-CFCAC5CAEF1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashGroupTechAssessment", "FlashGroupTechAssessment.csproj", "{FD5EA48C-5319-476B-881F-CFCAC5CAEF1E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80418129-38DD-4651-8F89-DAE6F9C02AC8}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashGroupUnitTests", ".\FlashGroupUnitTests\FlashGroupUnitTests.csproj", "{4F820107-22D3-44BA-ABC2-53DB432F1A10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashGroupUnitTests", "..\FlashGroupUnitTests\FlashGroupUnitTests.csproj", "{4F820107-22D3-44BA-ABC2-53DB432F1A10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
