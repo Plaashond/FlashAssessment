@@ -138,7 +138,7 @@ namespace FlashGroupTechAssessment.Repositories.SensitiveWord
 				_dbConnection.Open();
 
 				string query = @"INSERT INTO MyDatabase.dbo.SensitiveWord
-								( word, starred_word, severity_id)
+								( word, starred_word)
 								VALUES( @Word, @StarredWord);";
 
 				await _dbConnection.ExecuteAsync(query, message);

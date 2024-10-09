@@ -24,6 +24,9 @@ namespace FlashGroupTechAssessment.Services.SensitiveWord
 		public async Task<SensitiveWordDto> GetById(int id)
 		{
 			Models.SensitiveWord word = await _sensitiveWordRepository.GetById(id);
+			if (word == null) {
+				return new SensitiveWordDto();
+			}
 			return new SensitiveWordDto(word.Word, word.Id);
 		}
 

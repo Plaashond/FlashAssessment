@@ -4,6 +4,7 @@ using FlashGroupTechAssessment.Repositories.SensitiveWord;
 using FlashGroupTechAssessment.Repositories.Message;
 using FlashGroupTechAssessment.Wrappers;
 using FlashGroupTechAssessment.Services.Message;
+using FlashGroupTechAssessment.Services.SensitiveWord;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddTransient<IDbConnectionWrapper>(sp =>
 builder.Services.AddScoped<ISensitiveWordRepository,SensitiveWordRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<ISensitiveWordService,SensitiveWordService>();
 
 var app = builder.Build();
 
