@@ -22,10 +22,10 @@
 - [x] Add test project
 - [x] Add code coverage report
 - [x] Add unit tests for dapper code
-	- [ ] sensitive word repository
+	- [x] sensitive word repository
 	- [x] message repository
 	- [x] message service
-	- [ ] Sensitive word service
+	- [x] Sensitive word service
 
 - [ ] Discuss what can be done to enhance performance
 	- [ ] Put messages in a staging table called CustomerMessages and queue all messages without sanatized text to be processed.
@@ -33,14 +33,17 @@
 - [ ] Aditional enhancements
 	- [x] remove customer link
 	- [x] Add audit check on bleep to set if it needs to save or if it is a once-off.
+	- [x] Document README to show setup steps
+	- [ ] Aditional code coverage
+	- [ ] Integration tests with database
 	- [ ] Add case sensitive check
 	- [ ] Add authentication to crud functionality
-	- [ ] Document README to show setup steps
 	- [ ] Add better exception handling(Response messages)
 	- [ ] move database setup to startup
 	- [ ] add a way of rating a message in severity to show if the message should be flagged
 	- [ ] link messages to users
 	- [ ] Flag suspiscous messages
+
 - [x] Add microservice to sanatize a string 
 - [x] Add Readme instructions for project
 
