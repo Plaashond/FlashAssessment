@@ -72,4 +72,145 @@ public class SensitiveWordRepositoryTests
 
 				Assert.False(result);
 	}
+	[Fact]
+	public async Task GetAll_ReturnsListOfSensitiveWord()
+	{
+				var expectedWords = new List<SensitiveWord>
+		{
+			new SensitiveWord { Id = 1, Word = "Test Word 1", StarredWord = "*********" },
+			new SensitiveWord { Id = 2, Word = "Test Word 2", StarredWord = "**********" }
+		};
+
+		_mockDbConnection.Setup(db => db.QueryAsync<SensitiveWord>(It.IsAny<string>(), null, null, null, null))
+			.ReturnsAsync(expectedWords);
+
+				var result = await _sensitiveWordRepository.GetAll();
+
+				Assert.Equal(expectedWords.Count, result.Count);
+		Assert.Equal(expectedWords, result, new SensitiveWordComparer());
+	}
+
+	[Fact]
+	public async Task GetById_ReturnsSensitiveWord_WhenWordExists()
+	{
+				int id = 1;
+		var expectedWord = new SensitiveWord { Id = id, Word = "Test Word", StarredWord = "*********" };
+
+		_mockDbConnection.Setup(db => db.QueryAsync<SensitiveWord>(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ReturnsAsync(new List<SensitiveWord> { expectedWord });
+
+				var result = await _sensitiveWordRepository.GetById(id);
+
+				Assert.Equal(expectedWord, result, new SensitiveWordComparer());
+	}
+
+	[Fact]
+	public async Task GetById_ReturnsNull_WhenWordDoesNotExist()
+	{
+				int id = 1;
+
+		_mockDbConnection.Setup(db => db.QueryAsync<SensitiveWord>(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ReturnsAsync(new List<SensitiveWord>());
+
+				var result = await _sensitiveWordRepository.GetById(id);
+
+				Assert.Null(result);
+	}
+
+	[Fact]
+	public async Task Create_ReturnsTrue_WhenWordIsAdded()
+	{
+				var word = new SensitiveWord { Word = "New Test Word", StarredWord = "**************" };
+
+		_mockDbConnection.Setup(db => db.ExecuteAsync(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ReturnsAsync(1);
+
+				var result = await _sensitiveWordRepository.Create(word);
+
+				Assert.True(result);
+	}
+
+	[Fact]
+	public async Task Create_ReturnsFalse_WhenWordIsNotAdded()
+	{
+				var word = new SensitiveWord { Word = "New Test Word", StarredWord = "**************" };
+
+		_mockDbConnection.Setup(db => db.ExecuteAsync(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ThrowsAsync(new Exception());
+
+		await Assert.ThrowsAsync<Exception>(() => _sensitiveWordRepository.Create(word));
+	}
+
+	[Fact]
+	public async Task Update_ReturnsTrue_WhenWordIsUpdated()
+	{
+				var word = new SensitiveWord { Id = 1, Word = "Updated Test Word", StarredWord = "**************" };
+
+		_mockDbConnection.Setup(db => db.QueryAsync<SensitiveWord>(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ReturnsAsync(new List<SensitiveWord> { word });
+
+		_mockDbConnection.Setup(db => db.ExecuteAsync(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ReturnsAsync(1);
+
+				var result = await _sensitiveWordRepository.Update(word);
+
+				Assert.True(result);
+	}
+
+	[Fact]
+	public async Task Update_ReturnsFalse_WhenWordIsNotUpdated()
+	{
+				var word = new SensitiveWord { Id = 1, Word = "Updated Test Word", StarredWord = "**************" };
+
+		_mockDbConnection.Setup(db => db.QueryAsync<SensitiveWord>(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ReturnsAsync((IEnumerable<SensitiveWord>)null);
+
+		var result = await _sensitiveWordRepository.Update(word);
+
+				Assert.False(result);
+	}
+
+	[Fact]
+	public async Task Delete_ReturnsTrue_WhenWordIsDeleted()
+	{
+				int id = 1;
+
+		_mockDbConnection.Setup(db => db.QueryAsync<SensitiveWord>(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			.ReturnsAsync(new List<SensitiveWord> { new SensitiveWord { Id = id } });
+
+		_mockDbConnection.Setup(db => db.ExecuteAsync(It.IsAny<string>(), null, null, null, null))
+			.ReturnsAsync(1);
+
+				var result = await _sensitiveWordRepository.Delete(id);
+
+				Assert.True(result);
+	}
+
+	[Fact]
+	public async Task Delete_ReturnsFalse_WhenWordIsNotDeleted()
+	{
+				int id = 1;
+
+		_mockDbConnection.Setup(db => db.QueryAsync<SensitiveWord>(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+			 .ReturnsAsync((IEnumerable<SensitiveWord>)null);
+
+		var result = await _sensitiveWordRepository.Delete(id);
+
+				Assert.False(result);
+	}
+
+	private class SensitiveWordComparer : IEqualityComparer<SensitiveWord>
+	{
+		public bool Equals(SensitiveWord x, SensitiveWord y)
+		{
+			return x.Id == y.Id &&
+				   x.Word == y.Word &&
+				   x.StarredWord == y.StarredWord;
+		}
+
+		public int GetHashCode(SensitiveWord obj)
+		{
+			return obj.Id.GetHashCode();
+		}
+	}
 }
