@@ -43,6 +43,7 @@
 	- [ ] add a way of rating a message in severity to show if the message should be flagged
 	- [ ] link messages to users
 	- [ ] Flag suspiscous messages
+	- [ ] Add proper logging
 
 - [x] Add microservice to sanatize a string 
 - [x] Add Readme instructions for project
