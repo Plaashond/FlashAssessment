@@ -10,10 +10,10 @@ namespace FlashGroupTechAssessment.Controllers
 	[Route("api/[controller]")]
 	public class SensitiveWordController : ControllerBase
 	{
-		private readonly ILogger<BleepController> _logger;
+		private readonly ILogger<SensitiveWordController> _logger;
 		private readonly ISensitiveWordService _sensitiveWordService;
 
-		public SensitiveWordController(ILogger<BleepController> logger, ISensitiveWordService sensitiveWordService)
+		public SensitiveWordController(ILogger<SensitiveWordController> logger, ISensitiveWordService sensitiveWordService)
 		{
 			_logger = logger;
 			_sensitiveWordService = sensitiveWordService;

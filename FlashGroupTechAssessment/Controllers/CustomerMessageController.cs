@@ -9,10 +9,10 @@ namespace FlashGroupTechAssessment.Controllers
 	[Route("api/[controller]")]
 	public class CustomerMessageController : ControllerBase
 	{
-		private readonly ILogger<BleepController> _logger;
+		private readonly ILogger<CustomerMessageController> _logger;
 		private readonly IMessageService _messageService;
 
-		public CustomerMessageController(ILogger<BleepController> logger,IMessageService messageService)
+		public CustomerMessageController(ILogger<CustomerMessageController> logger,IMessageService messageService)
 		{
 			_logger = logger;
 			_messageService = messageService;
